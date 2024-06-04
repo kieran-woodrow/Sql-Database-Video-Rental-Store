@@ -1,0 +1,3 @@
+-- 5)  \select_{YearReleased=2018} Movies;
+-- 6) \project_{Title} (\select_{YearReleased=2019} (\select_{LastName="Silverberg"} (\project_{CustomerID,FirstName,LastName} Customer \join_{CustomerID= CID} (Movies \join_{MovieID=MID} Customer_Movies))));
+-- 7) \project_{FirstName, LastName} (Customer \join_{CustID=CustomerID} (\project_{CustID} ((\rename_{dateb} (\project_{DateBorrowed} (\select_{Title='Law and Order'} (\project_{Title, DateBorrowed} (Series \join_{SID=SeriesID} Customer_Series))))) \join_{dateb=DateBorrowed} Customer_Series)));

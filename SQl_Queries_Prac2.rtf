@@ -1,0 +1,47 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /*query 1*/\
+select  FirstName, LastName, count(CustomerID) as TotalMovies\
+from Customer_Movies INNER JOIN Customer ON customerID=Customer_Movies.CID GROUP BY CustomerID HAVING COUNT(CustomerID) > 1;\
+\
+/*query 2*/\
+select Title, Seasons\
+from Series\
+WHERE Seasons = (select max(Seasons) from Series);\
+\
+\
+/*query 3*/\
+select FirstName, LastName\
+from Customer where CustomerID\
+in(SELECT CID from Customer_Movies) AND CustomerID NOT IN (SELECT Customer_Series.CUSTID FROM Customer_Series);\
+\
+\
+/*query 4*/\
+select FirstName, LastName\
+from Customer where CustomerID\
+NOT IN(Select CustID from Customer_Series);\
+\
+/*query 5*/\
+select Title\
+from Movies\
+where YearReleased='2018';\
+\
+/*query 6*/\
+SELECT Title\
+FROM Movies\
+WHERE YearReleased='2019'\
+AND MovieID IN(SELECT MID FROM Customer_Movies WHERE CID IN(SELECT CustomerID FROM Customer WHERE LastName="Silverberg")\
+);\
+\
+\
+/*query 7*/\
+SELECT FirstName, LastName\
+FROM Customer\
+WHERE CustomerID\
+IN(SELECT CustID FROM Customer_Series WHERE DateBorrowed=(SELECT DateBorrowed FROM Customer_Series WHERE SID IN (SELECT SeriesID FROM Series WHERE Title="Law and Order")));\
+}
